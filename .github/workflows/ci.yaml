@@ -1,23 +1,23 @@
 name: CI
 on: [push, pull_request]
 jobs:
-  start-server:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 'latest'
-      - name: Checkout server
-        uses: actions/checkout@v4
-        with:
-          repository: cypress-io/cypress-realworld-app
-      - name: Start Server
-        run: yarn install && yarn dev
-        timeout-minutes: 10
-      - name: tear down
-        if: always()
-        run: echo "Server Shutdown gracefully"
+#   start-server:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Setup node
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 'latest'
+#       - name: Checkout server
+#         uses: actions/checkout@v4
+#         with:
+#           repository: cypress-io/cypress-realworld-app
+#       - name: Start Server
+#         run: yarn install && yarn dev
+#         timeout-minutes: 10
+#       - name: tear down
+#         if: always()
+#         run: echo "Server Shutdown gracefully"
   test:
     runs-on: ubuntu-latest
     env:
