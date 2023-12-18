@@ -7,7 +7,7 @@ jobs:
         - name: Setup node
           uses: actions/setup-node@v3
           with:
-            node-version: 'latest'
+            node-version: 14
 
         - name: Checkout tools repo
           uses: actions/checkout@v4
