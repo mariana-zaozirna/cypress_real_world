@@ -1,23 +1,6 @@
 name: CI
 on: [push, pull_request]
 jobs:
-#   start-server:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Setup node
-#         uses: actions/setup-node@v3
-#         with:
-#           node-version: 'latest'
-#       - name: Checkout server
-#         uses: actions/checkout@v4
-#         with:
-#           repository: cypress-io/cypress-realworld-app
-#       - name: Start Server
-#         run: yarn install && yarn dev
-#         timeout-minutes: 10
-#       - name: tear down
-#         if: always()
-#         run: echo "Server Shutdown gracefully"
   test:
     runs-on: ubuntu-latest
     env:
@@ -26,27 +9,25 @@ jobs:
       USERNAME_TO_CHECK: ${{ secrets.USERNAME_TO_CHECK }}
       PASSWORD_TO_CHECK: ${{ secrets.PASSWORD_TO_CHECK }}
     steps:
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'latest'
+      - name: Checkout server
+        uses: actions/checkout@v4
+        with:
+          repository: cypress-io/cypress-realworld-app
+          path: cypress-realworld-app
+      - name: Install Server
+        run: cd cypress-realworld-app && yarn install
       - name: Checkout test
         uses: actions/checkout@v4
+        with:
+          path: tests
       - name: Install Test
-        run: sleep 120 && npm install
+        run: cd tests && npm install
       - name: Run Tests
-        run: npm run wdio:chrome
-        # - name: Checkout tools repo
-        #   uses: actions/checkout@v4
-        #   with:
-        #     repository: cypress-io/cypress-realworld-app
-        #     path: cypress-realworld-app
-        # - name: Update @material-ui/core
-        #   run: cd cypress-realworld-app && npm install @material-ui/core@latest
-        # - name: Start Server
-        #   run: |
-        #     cd cypress-realworld-app && npm install && npm run dev
-        # - name: Checkout tests
-        #   uses: actions/checkout@v4
-        # - name: Install
-        #   run: npm install
-       
-        # - name: Test
-        #   run: npm run wdio:chrome
+        run: |
+          cd cypress-realworld-app && yarn dev &
+          cd tests && sleep 120 && npm run wdio:chrome
     
