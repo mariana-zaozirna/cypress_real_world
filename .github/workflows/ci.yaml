@@ -1,0 +1,25 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Setup node
+          uses: actions/setup-node@v3
+          with:
+            node-version: 'latest'
+
+        - name: Checkout tools repo
+          uses: actions/checkout@v4
+          with:
+            repository: cypress-io/cypress-realworld-app
+            path: cypress-realworld-app
+        - name: Start Server
+          run: |
+            cd cypress-realworld-app && npm install && npm run dev
+        - name: Checkout tests
+          uses: actions/checkout@v4
+        - name: Install
+          run: npm install
+        - name: Test
+          run: npm run wdio:chrome
