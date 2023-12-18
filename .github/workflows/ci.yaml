@@ -35,14 +35,14 @@ jobs:
           
       - name: Generate Allure report
         if: always() 
-        run: npm run allure:report
+        run: cd tests && npm run allure:report
 
       - name: Deploy Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.TOKEN }}
           publish_branch: gh-pages
-          publish_dir: ./reports/allure-report
+          publish_dir: ./tests/reports/allure-report
       
           
      
