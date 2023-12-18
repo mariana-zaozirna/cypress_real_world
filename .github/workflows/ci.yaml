@@ -24,10 +24,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: tests
+
       - name: Install Test
         run: cd tests && npm install
+
       - name: Run Tests
         run: |
           cd cypress-realworld-app && yarn dev &
           cd tests && sleep 120 && npm run wdio:chrome
-    
+          continue-on-error: true
+
+      - name: Generate Allure report
+        run: npm run allure:report
+
+      - name: Deploy Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./reports/allure-report
+      
+          
+     
