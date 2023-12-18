@@ -20,7 +20,6 @@ jobs:
         run: echo "Server Shutdown gracefully"
   test:
     runs-on: ubuntu-latest
-    needs: start-server
     steps:
       - name: Checkout test
         uses: actions/checkout@v4
