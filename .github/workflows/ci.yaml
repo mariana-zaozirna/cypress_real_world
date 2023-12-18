@@ -23,8 +23,10 @@ jobs:
     steps:
       - name: Checkout test
         uses: actions/checkout@v4
+      - name: Install Test
+        run: sleep 120 && npm install
       - name: Run Tests
-        run: sleep 60 && npm install && npm run wdio:chrome
+        run: npm run wdio:chrome
         # - name: Checkout tools repo
         #   uses: actions/checkout@v4
         #   with:
