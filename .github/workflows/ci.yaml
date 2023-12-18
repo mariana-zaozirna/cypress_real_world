@@ -16,7 +16,10 @@ jobs:
           path: cypress-realworld-app
       - name: Start Server
         run: |
-          cd cypress-realworld-app && yarn install && yarn dev
+          cd cypress-realworld-app && yarn install && yarn dev && sleep 15
+      - name: Echo Server
+        run: |
+          echo server is started
 
     # steps:
     #     - name: Setup node
