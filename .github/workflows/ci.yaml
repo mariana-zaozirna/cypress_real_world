@@ -1,46 +1,46 @@
 name: CI
 on: [push, pull_request]
 jobs:
-  build:
+  start-server:
     runs-on: ubuntu-latest
     steps:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
           node-version: 'latest'
-
       - name: Checkout server
         uses: actions/checkout@v4
         with:
           repository: cypress-io/cypress-realworld-app
-          path: cypress-realworld-app
       - name: Start Server
-        run: |
-          cd cypress-realworld-app && yarn install && yarn dev && sleep 15
-      - name: Echo Server
-        run: |
-          echo server is started
-
-    # steps:
-    #     - name: Setup node
-    #       uses: actions/setup-node@v3
-    #       with:
-    #         node-version: 14
-
-    #     - name: Checkout tools repo
-    #       uses: actions/checkout@v4
-    #       with:
-    #         repository: cypress-io/cypress-realworld-app
-    #         path: cypress-realworld-app
-    #     - name: Update @material-ui/core
-    #       run: cd cypress-realworld-app && npm install @material-ui/core@latest
-    #     - name: Start Server
-    #       run: |
-    #         cd cypress-realworld-app && npm install && npm run dev
-    #     - name: Checkout tests
-    #       uses: actions/checkout@v4
-    #     - name: Install
-    #       run: npm install
+        run: yarn install && yarn dev
+        timeout-minutes: 10
+      - name: tear down
+        if: always()
+        run: echo "Server Shutdown gracefully"
+  test:
+    runs-on: ubuntu-latest
+    needs: start-server
+    steps:
+      - name: Checkout test
+        uses: actions/checkout@v4
+      - name: Run Tests
+        run: npm install && npm run wdio:chrome
+        # - name: Checkout tools repo
+        #   uses: actions/checkout@v4
+        #   with:
+        #     repository: cypress-io/cypress-realworld-app
+        #     path: cypress-realworld-app
+        # - name: Update @material-ui/core
+        #   run: cd cypress-realworld-app && npm install @material-ui/core@latest
+        # - name: Start Server
+        #   run: |
+        #     cd cypress-realworld-app && npm install && npm run dev
+        # - name: Checkout tests
+        #   uses: actions/checkout@v4
+        # - name: Install
+        #   run: npm install
        
-    #     - name: Test
-    #       run: npm run wdio:chrome
+        # - name: Test
+        #   run: npm run wdio:chrome
+    
