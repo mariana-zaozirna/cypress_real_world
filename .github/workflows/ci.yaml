@@ -32,9 +32,9 @@ jobs:
         run: |
           cd cypress-realworld-app && yarn dev &
           cd tests && sleep 120 && npm run wdio:chrome
-          continue-on-error: true
-
+          
       - name: Generate Allure report
+        if: always() 
         run: npm run allure:report
 
       - name: Deploy Report to GitHub Pages
