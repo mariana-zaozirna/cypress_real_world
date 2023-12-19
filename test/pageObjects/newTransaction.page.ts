@@ -74,9 +74,11 @@ class NewTransaction extends Page {
   }
   public async typeSearchUser(userName: string) {
     const oldLength = (await this.usersList).length;
-    await this.searchInput.setValue(userName);
     await browser.waitUntil(
-      async () => (await this.usersList).length != oldLength,
+      async () => {
+        await this.searchInput.setValue(userName);
+        return (await this.usersList).length != oldLength
+      },
       { timeout: 20_000 }
     );
   }
