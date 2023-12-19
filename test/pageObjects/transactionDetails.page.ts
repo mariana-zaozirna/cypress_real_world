@@ -6,9 +6,14 @@ const likeButton =
   '//button[starts-with(@data-test, "transaction-like-button")]';
 const commentsSection = '[data-test="comments-list"]';
 
+const receiverName = '//span[starts-with(@data-test,"transaction-receiver")]'
+
 class DetailsPage extends Page {
   public get commentInput() {
     return $(commentInput);
+  }
+  public get receiverName() {
+    return $(receiverName);
   }
   public async setComment(comment: string) {
     await this.commentInput.setValue(comment);

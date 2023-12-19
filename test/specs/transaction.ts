@@ -50,6 +50,8 @@ describe('Transaction', () => {
     await personalPage.clickMineTab();
     await personalPage.waitForTransactionToAppear();
     await (await personalPage.paidInfoText)[0].click();
+    await expect(await transactionDetailsPage.receiverName)
+      .toHaveText(`${transactionReceiver.firstName} ${transactionReceiver.lastName}`)
     await transactionDetailsPage.setComment(faker.lorem.paragraph());
     await expect(await transactionDetailsPage.commentsSection).toBeDisplayed();
 
@@ -115,7 +117,7 @@ describe('Transaction', () => {
       expect.stringContaining(expectedText)
     );
   });
-  
+
   afterEach(async () => {
     await loginHelper.logout();
   });
