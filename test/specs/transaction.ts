@@ -16,12 +16,8 @@ const passwordToCheck = process.env.PASSWORD_TO_CHECK as string;
 const generatedAmount = Math.floor(Math.random() * 999) + 1;
 
 describe('Transaction', () => {
-  beforeEach(async () => {
+  before(async () => {
     await loginAsTransactionSender();
-  });
-
-  afterEach(async () => {
-    await loginHelper.logout();
   });
 
   const loginAsNotificationReceiver = async () => {
@@ -118,5 +114,8 @@ describe('Transaction', () => {
     await expect(await notificationsPage.getFirstNotifications()).toHaveText(
       expect.stringContaining(expectedText)
     );
+  });
+  after(async () => {
+    await loginHelper.logout();
   });
 });

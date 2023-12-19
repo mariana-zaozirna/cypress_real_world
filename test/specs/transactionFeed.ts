@@ -6,15 +6,15 @@ import newTransactionPage from '../pageObjects/newTransaction.page.ts';
 import accountHelper from '../helpers/accountHelper.ts';
 import loginHelper from '../helpers/loginHelper.ts';
 import { faker } from '@faker-js/faker';
+import signUpHelper from '../helpers/signUpHelper.ts';
 
 const amount = Number(faker.finance.amount({ dec: 0 }));
-
-const username = process.env.TEST_USERNAME as string;
-const password = process.env.TEST_PASSWORD as string;
+const username = faker.internet.userName();
+const password = faker.internet.password();
 
 describe('Transaction feed', () => {
   before(async () => {
-    await loginHelper.login(username, password);
+    await signUpHelper.signUp(username, password);
   });
 
   it('TC_9: [Send Payment] New transaction creation', async () => {
