@@ -23,7 +23,9 @@
     "wdio:firefox": "cross-env BROWSER=firefox npx wdio wdio.conf.ts",
     "wdio:file": "npx wdio wdio.conf.ts --spec ",
     "wdio:all": "npx wdio wdio.conf.ts",
-    "allure:report": "allure generate ./reports/allure-results --clean -o ./reports/allure-report"
+    "allure:report:chrome": "npx allure generate reports/allure-results/chrome --clean -o reports/allure-reports/chrome",
+    "allure:report:firefox": "npx allure generate reports/allure-results/firefox --clean -o reports/allure-reports/firefox "
+
   },
   "dependencies": {
     "allure-commandline": "^2.25.0",
