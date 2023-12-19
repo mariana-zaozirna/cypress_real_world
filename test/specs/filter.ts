@@ -15,9 +15,6 @@ describe('Filter amount', () => {
     await personalPage.open();
   });
 
-  beforeEach(async () => {
-    await personalPage.open();
-  });
 
   it('TC_6: Filter amount range (500-1000)', async () => {
     await expect(browser).toHaveUrl(`${config.baseUrl}personal`);
