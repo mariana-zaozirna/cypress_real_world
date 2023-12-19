@@ -19,8 +19,8 @@
     "wdio-chromedriver-service": "^8.1.1"
   },
   "scripts": {
-    "wdio:chrome": "cross-env BROWSER=chrome npx wdio wdio.conf.ts --headless --disable-gpu",
-    "wdio:firefox": "cross-env BROWSER=firefox npx wdio wdio.conf.ts --headless --disable-gpu",
+    "wdio:chrome": "cross-env BROWSER=chrome npx wdio wdio.conf.ts",
+    "wdio:firefox": "cross-env BROWSER=firefox npx wdio wdio.conf.ts",
     "wdio:file": "npx wdio wdio.conf.ts --spec ",
     "wdio:all": "npx wdio wdio.conf.ts",
     "allure:report:chrome": "npx allure generate reports/allure-results/chrome --clean -o reports/allure-reports/chrome",
